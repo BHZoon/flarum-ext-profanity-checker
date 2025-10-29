@@ -1,0 +1,22 @@
+{
+  "extends": "flarum-tsconfig",
+  "include": [
+    "src/**/*",
+    "../vendor/*/*/js/dist-typings/@types/**/*",
+    "@types/**/*",
+    "admin.ts",
+    "forum.ts"
+  ],
+  "compilerOptions": {
+    "declarationDir": "./dist-typings",
+    "baseUrl": ".",
+    "jsx": "react",
+    "jsxFactory": "m",
+    "jsxFragmentFactory": "m.fragment",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "paths": {
+      "flarum/*": ["../vendor/flarum/core/js/dist-typings/*"]
+    }
+  }
+}
