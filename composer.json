@@ -16,6 +16,7 @@
   },
   "extra": {
     "flarum-extension": {
+      "id": "bhzoon-profanity-checker",
       "title": "Profanity Checker",
       "icon": {
         "name": "fas fa-shield-alt",

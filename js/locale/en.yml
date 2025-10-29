@@ -3,3 +3,5 @@ bhzoon-profanity-checker:
     settings:
       api_key_label: Gemini API Key
       api_key_help: Enter your Gemini API key to enable profanity detection.
+    permissions:
+      bypass_label: Bypass profanity moderation
