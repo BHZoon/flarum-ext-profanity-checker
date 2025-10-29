@@ -5,7 +5,7 @@ namespace Bhzoon\ProfanityChecker\Listeners;
 use Bhzoon\ProfanityChecker\Services\GeminiService;
 use Flarum\Post\CommentPost;
 use Flarum\Post\Event\Saving;
-use Illuminate\Validation\ValidationException;
+use Flarum\Foundation\ValidationException;
 
 class ModeratePost
 {
@@ -23,15 +23,20 @@ class ModeratePost
 		$newContent = $event->data['attributes']['content'] ?? null;
 		if ($newContent === null) return;
 
-		if ($event->actor && $event->actor->isAdmin()) return;
+		if ($event->actor && $event->actor->hasPermission('bhzoon.profanity.bypass')) {
+			return;
+		}
+
 
 		if (!$this->gemini->isConfigured()) return;
 
 		$verdict = $this->gemini->moderateText($newContent);
 
 		if ($verdict['blocked'] ?? false) {
-			$msg = $verdict['reason'] ?: 'Your post appears to contain prohibited content.';
-			throw ValidationException::withMessages(['content' => [$msg]]);
+			$reason = (string)($verdict['reason'] ?? 'Content policy');
+			throw new ValidationException([
+				'content' => "Your post was blocked: {$reason}."
+			]);
 		}
 	}
 }
