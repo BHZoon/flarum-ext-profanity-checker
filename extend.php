@@ -1,7 +1,7 @@
 <?php
 
 use Flarum\Extend;
-use Bhzoon\ProfanityChecker\Listeners\ModeratePostProfanities;
+use Bhzoon\ProfanityChecker\Listeners\ModeratePost;
 
 return [
 	(new Extend\Frontend('forum'))->js(__DIR__.'/js/dist/forum.js'),
@@ -14,7 +14,7 @@ return [
 
 	(new Extend\Event)->listen(
 		\Flarum\Post\Event\Saving::class,
-		ModeratePostProfanities::class
+		ModeratePost::class
 	),
 
 	new Extend\Locales(__DIR__.'/locale'),
